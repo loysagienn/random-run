@@ -1,0 +1,99 @@
+@import '../common.styl'
+
+$valueSize = 40px
+
+.root
+  position: relative
+  width: 300px
+  height: 300px
+  border-radius: 150px
+  background-color: #E1F5FE
+  user-select: none
+  -webkit-tap-highlight-color: transparent;
+
+.hourArrow,
+.minuteArrow
+  position: absolute
+  top: 150px
+  left: 150px
+  height: 0
+  width: 0
+  transform-origin: center center
+  transition: transform 0.2s ease-in-out
+
+  .arrow
+    position: absolute
+    left: -1px
+    bottom: 0
+    width: 2px
+    border-radius: 2px
+    background-color: #4FC3F7
+
+  .value
+    position: absolute
+    left: -20px
+    width: 40px
+    height: 40px
+    border-radius: 40px
+    background-color: #81D4FA
+    cursor: pointer
+
+.hourArrow
+  .arrow
+    height: 44px
+  .value
+    bottom: 60px
+
+.minuteArrow
+  .arrow
+    height: 58px
+  .value
+    bottom: 102px
+
+.hourValue,
+.minuteValue
+  position: absolute
+  width: $valueSize
+  height: $valueSize
+  line-height: $valueSize
+  border-radius: $valueSize
+  cursor: pointer
+
+  &:hover
+    background-color: #d0efff
+
+  &:active
+    background-color: #c7edff
+
+  &.active
+    background-color: transparent
+    color: #ffffff
+
+.hourTextValue,
+.minuteTextValue
+  position: absolute
+  width: $valueSize
+  height: $valueSize
+  line-height: $valueSize
+  text-align: center
+  cursor: pointer
+  pointer-events: none
+
+.hourTextValue
+  font-size: 18px
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out
+  opacity: 1;
+  transform-origin: center center
+  transform: scale(1, 1)
+
+.minuteTextValue
+  font-size: 14px
+
+.center
+  position: absolute
+  left: 145px
+  top: 145px
+  width: 10px
+  height: 10px
+  border-radius: 10px
+  background-color: #4FC3F7

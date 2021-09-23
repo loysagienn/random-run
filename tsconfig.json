@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "outDir": "dist",
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "config": ["config/production"]
+    }
+  },
+  "include": ["src/**/*"]
+}

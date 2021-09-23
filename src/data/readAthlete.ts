@@ -1,0 +1,31 @@
+import { Athlete } from "types";
+import { readStravaClub } from "./readClub";
+
+export const readAthlete = (data: any): Athlete => ({
+  id: data.id,
+  username: data.username,
+  resourceState: data.resource_state,
+  firstname: data.firstname,
+  lastname: data.lastname,
+  bio: data.bio,
+  city: data.city,
+  state: data.state,
+  country: data.country,
+  sex: data.sex,
+  premium: data.premium,
+  summit: data.summit,
+  createdAt: data.created_at,
+  updatedAt: data.updated_at,
+  badgeTypeId: data.badge_type_id,
+  weight: data.weight,
+  profileMedium: data.profile_medium,
+  profile: data.profile,
+  blocked: data.blocked,
+  canFollow: data.can_follow,
+  followerCount: data.follower_count,
+  friendCount: data.friend_count,
+  athleteType: data.athlete_type,
+  datePreference: data.date_preference,
+  measurementPreference: data.measurement_preference,
+  clubs: data.clubs.map(readStravaClub),
+});
