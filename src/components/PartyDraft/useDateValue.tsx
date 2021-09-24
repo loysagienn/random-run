@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentMonthDayKey } from "selectors";
 import {
@@ -7,31 +8,37 @@ import {
   getWeekDayName,
 } from "utils";
 
-export const useDateValue = (monthDayKey: string) => {
+export const useDateValue = (monthDayKey?: string | null) => {
   const currentMonthDayKey = useSelector(selectCurrentMonthDayKey);
 
-  let prefix = "";
-
-  if (monthDayKey === currentMonthDayKey) {
-    prefix = "Сегодня";
-  } else {
-    const date = getMonthDayDate(monthDayKey);
-    date.setDate(date.getDate() - 1);
-
-    if (getMonthDayKey(date) === currentMonthDayKey) {
-      prefix = "Завтра";
+  return useMemo(() => {
+    if (!monthDayKey) {
+      return "";
     }
-  }
 
-  if (!prefix) {
-    prefix = getWeekDayName(monthDayKey);
-  }
+    let prefix = "";
 
-  let text = getMonthDayName(monthDayKey);
+    if (monthDayKey === currentMonthDayKey) {
+      prefix = "Сегодня";
+    } else {
+      const date = getMonthDayDate(monthDayKey);
+      date.setDate(date.getDate() - 1);
 
-  if (prefix) {
-    text = `${prefix}, ${text}`;
-  }
+      if (getMonthDayKey(date) === currentMonthDayKey) {
+        prefix = "Завтра";
+      }
+    }
 
-  return text;
+    if (!prefix) {
+      prefix = getWeekDayName(monthDayKey);
+    }
+
+    let text = getMonthDayName(monthDayKey);
+
+    if (prefix) {
+      text = `${prefix}, ${text}`;
+    }
+
+    return text;
+  }, [monthDayKey]);
 };

@@ -1,6 +1,7 @@
 import { renderToString } from "react-dom/server";
 import { AppContext, State } from "types";
 import { getStore, renderApp } from "store";
+import { YANDEX_MAPS_API_KEY } from "config";
 
 const bodyStyle = "background-color: #f5f5f5;";
 const bundleRoot = "/static/dist/";
@@ -40,6 +41,7 @@ export function renderHtml(ctx: AppContext) {
       <script>window.__INITIAL_STATE__ = ${JSON.stringify(
         ctx.state.initialState
       )}</script>
+      <script src="https://api-maps.yandex.ru/2.1/?apikey=${YANDEX_MAPS_API_KEY}&lang=ru_RU" type="text/javascript"></script>
       <script src="${bundleRoot}app.js"></script>
   </body>
 </html>`;

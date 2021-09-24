@@ -21,3 +21,4 @@ try {
 export const HTTP_PORT = externalConfig.HTTP_PORT || 8081;
 export const STRAVA_CLIENT_ID = externalConfig.STRAVA_CLIENT_ID || 0;
 export const STRAVA_CLIENT_SECRET = externalConfig.STRAVA_CLIENT_SECRET || "";
+export const YANDEX_MAPS_API_KEY = externalConfig.YANDEX_MAPS_API_KEY || "";
