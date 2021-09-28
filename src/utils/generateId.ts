@@ -1,5 +1,4 @@
-const USED_CHARS =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const USED_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789";
 
 const generateRandomChar = () =>
   USED_CHARS.charAt(Math.floor(Math.random() * USED_CHARS.length));

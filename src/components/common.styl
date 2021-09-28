@@ -31,3 +31,10 @@ shadow(type = default)
 
 gradient(angle, firstColor, lastColor)
     background: linear-gradient(angle, firstColor, lastColor)
+
+$mobileBreakpoint = 500px
+
+
+mobile()
+    +maxWidth($mobileBreakpoint)
+        {block}

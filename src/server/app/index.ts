@@ -11,6 +11,9 @@ import { stravaOauth } from "./stravaOauth";
 import { stravaCredentials } from "./stravaCredentials";
 import { athlete } from "./athlete";
 import { html } from "./html";
+import { withApi } from "./withApi";
+import { api } from "./api";
+import { errorHandler } from "./errorHandler";
 
 type Params = {
   httpPort: number;
@@ -29,12 +32,15 @@ export async function initApp({ httpPort }: Params) {
 
   app.use(sendStatic);
   app.use(bodyParser());
+  app.use(errorHandler);
+  app.use(withApi);
   app.use(session);
   app.use(router);
   app.use(stravaCredentials);
   app.use(athlete);
   app.use(authStrava);
   app.use(stravaOauth);
+  app.use(api);
   app.use(initialState);
   app.use(html);
 

@@ -1,10 +1,13 @@
 import type { Coords } from "./common";
+import type { AthleteId } from "./strava";
 
 export type PartyId = string;
 
 export type Party = {
   id: PartyId;
-  date: string;
+  athleteId: AthleteId;
+  monthDayKey: string;
+  timeKey: string;
   coords: Coords;
 };
 

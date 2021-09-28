@@ -1,5 +1,5 @@
 import { renderToString } from "react-dom/server";
-import { AppContext, State } from "types";
+import { AppContext, State, Api } from "types";
 import { getStore, renderApp } from "store";
 import { YANDEX_MAPS_API_KEY } from "config";
 
@@ -11,12 +11,12 @@ const serverRenderingOn = () => true;
 // const render = (initialState) =>
 // serverRenderingOn() ? renderAppContent(initialState) : "";
 
-function render(initialState: State): string {
+function render(initialState: State, api: Api): string {
   if (!serverRenderingOn()) {
     return "";
   }
 
-  const store = getStore(initialState);
+  const store = getStore(initialState, api);
 
   const app = renderApp(store);
 
@@ -37,7 +37,7 @@ export function renderHtml(ctx: AppContext) {
       <link rel="icon" type="image/png" href="/static/favicon.png" sizes="32x32">
   </head>
   <body style="${bodyStyle}">
-      <div id="app">${render(ctx.state.initialState)}</div>
+      <div id="app">${render(ctx.state.initialState, ctx.state.api)}</div>
       <script>window.__INITIAL_STATE__ = ${JSON.stringify(
         ctx.state.initialState
       )}</script>

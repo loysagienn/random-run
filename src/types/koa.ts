@@ -4,11 +4,13 @@ import type { Route } from "./router";
 import type { State } from "./store";
 import type { Session } from "./session";
 import type { StravaCredentials, Athlete } from "./strava";
+import type { Api } from "./api";
 
 export type AppState = {
   route: Route;
   initialState: State;
   session: Session;
+  api: Api;
   stravaCredentials?: StravaCredentials;
   athlete?: Athlete;
 };

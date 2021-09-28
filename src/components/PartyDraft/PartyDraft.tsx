@@ -1,13 +1,15 @@
 import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { clearPartyDraftAction, setPartyDraftAction } from "actions";
+import {
+  clearPartyDraftAction,
+  setPartyDraftAction,
+  createPartyAction,
+} from "actions";
 import { selectPartyDraft } from "selectors";
-import { getMonthDayName } from "utils";
-import { Popup, PopupHeader } from "components/Popup";
+import { Popup } from "components/Popup";
 import { DateSelector } from "./DateSelector";
 import { TimeSelector } from "./TimeSelector";
 import { CoordsSelector } from "./CoordsSelector";
-import { Header } from "./Header";
 import { useDateValue } from "./useDateValue";
 import css from "./PartyDraft.styl";
 
@@ -29,7 +31,10 @@ const usePopupContent = () => {
     [dispatch]
   );
   const onCoordsChange = useCallback(
-    (coords) => dispatch(setPartyDraftAction({ coords })),
+    (coords) => {
+      dispatch(setPartyDraftAction({ coords }));
+      dispatch(createPartyAction());
+    },
     [dispatch]
   );
 
@@ -53,27 +58,13 @@ const usePopupContent = () => {
     );
   }
 
-  if (!partyDraft.coords) {
-    return (
-      <CoordsSelector
-        onChange={onCoordsChange}
-        monthDayKey={partyDraft.monthDayKey}
-        timeKey={partyDraft.timeKey}
-        onClose={onClose}
-      />
-    );
-  }
-
   return (
-    <>
-      <Header
-        title={"Новая пробежка"}
-        value={`${dateValueText}, ${
-          partyDraft.timeKey
-        }, ${partyDraft.coords.join(", ")}`}
-        onClose={onClose}
-      />
-    </>
+    <CoordsSelector
+      onChange={onCoordsChange}
+      monthDayKey={partyDraft.monthDayKey}
+      timeKey={partyDraft.timeKey}
+      onClose={onClose}
+    />
   );
 };
 

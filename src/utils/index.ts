@@ -5,3 +5,5 @@ export * from "./stringifyQuery";
 export * from "./createReducer";
 export * from "./date";
 export * from "./strinfifyNumber";
+export * from "./EventEmitter";
+export * from "./RunError";

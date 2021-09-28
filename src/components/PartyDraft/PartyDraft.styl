@@ -1,14 +1,16 @@
 @import '../common.styl'
 
 .popup
+  box-sizing: border-box
   display: flex
   flex-direction: column
   align-items: stretch
   justify-content: space-between
   border-radius: 10px 10px 6px 6px
 
-  +maxWidth(450px)
+  +mobile()
     height: 100vh
+    padding-bottom: 100px
     border-radius: 0
 
 .dateSelector
@@ -25,10 +27,11 @@
 
 .coordsSelector
   width: calc(70vw + 100px)
-  height: 60vmin
-  min-height: 50vh
+  height: 65vmin
+  min-height: 60vh
   max-width: 100vh
-  +maxWidth(450px)
+
+  +mobile()
     width: 100vw
     height: unset
     min-height: unset
@@ -53,7 +56,7 @@
   color: #ffffff
   border-radius: 6px 6px 0 0
 
-  +maxWidth(450px)
+  +mobile()
     border-radius: 0
 
   .headerTitle
@@ -63,7 +66,7 @@
     font-size: 22px
     font-weight: 500
 
-    +maxWidth(450px)
+    +mobile()
       font-size: 18px
 
     svg

@@ -1,6 +1,7 @@
 import { render } from "react-dom";
 import { compose } from "redux";
 import { getStore, renderApp } from "store";
+import { api } from "./api";
 
 const {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: composeEnhancers = compose,
@@ -9,7 +10,7 @@ const {
 
 const appNode = document.getElementById("app");
 
-const store = getStore(initialState, composeEnhancers);
+const store = getStore(initialState, api, composeEnhancers);
 
 const app = renderApp(store);
 

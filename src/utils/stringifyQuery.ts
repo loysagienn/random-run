@@ -1,8 +1,11 @@
-type Params = {
-  [key: string]: string | number;
-};
+import type { RequestQuery } from "types";
 
-export const stringifyQuery = (params: Params): string =>
-  Object.entries(params)
+export const stringifyQuery = (params?: RequestQuery): string => {
+  if (!params) {
+    return "";
+  }
+
+  return Object.entries(params)
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
+};

@@ -7,7 +7,7 @@ import { useDateValue } from "./useDateValue";
 import { Header } from "./Header";
 import css from "./PartyDraft.styl";
 
-const DEFAULT_COORDS: Coords = [0, 0];
+const DEFAULT_COORDS: Coords = [55.7292, 37.6016];
 
 type Props = {
   onChange: (coords: Coords) => void;
@@ -53,7 +53,7 @@ export const CoordsSelector = ({
           size={ButtonSize.M}
           onClick={submit}
         >
-          Далее
+          Создать
         </Button>
       </div>
     </>

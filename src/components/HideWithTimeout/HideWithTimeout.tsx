@@ -13,6 +13,12 @@ export class HideWithTimeout extends Component<Props, {}> {
   private hideTimeout: NodeJS.Timeout | null = null;
   private lastChildren: ReactNode = null;
 
+  componentWillUnmount() {
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+    }
+  }
+
   render() {
     const { children } = this.props;
 
