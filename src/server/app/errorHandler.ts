@@ -12,6 +12,8 @@ export const errorHandler = async (ctx: AppContext, next: AppNext) => {
         error,
       };
     } else {
+      console.error(error);
+
       ctx.status = 500;
       ctx.body = {
         error: new RunError("request_unknown_error", {

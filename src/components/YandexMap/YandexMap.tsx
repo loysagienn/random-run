@@ -24,7 +24,9 @@ export class YandexMap extends PureComponent<Props, {}> {
   createCircle(coords: Coords, options?: CircleOptions): Circle {
     const circle = new Circle(coords, options);
 
-    this.mapAction((map) => map.geoObjects.add(circle.circle));
+    circle.on("init", (ymapsCircle) =>
+      this.mapAction((map) => map.geoObjects.add(ymapsCircle))
+    );
 
     return circle;
   }

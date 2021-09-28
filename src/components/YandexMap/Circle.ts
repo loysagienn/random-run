@@ -1,5 +1,6 @@
 import { EventEmitter } from "utils";
 import { Coords } from "types";
+import ymaps from "yandex-maps";
 
 type CircleOptions = {
   radius?: number;
@@ -13,11 +14,37 @@ const DEFAULT_CIRCLE_OPTIONS: CircleOptions = {
 
 type CircleEvents = {
   dragend: (coords: Coords) => void;
+  init: (circle: ymaps.Circle) => void;
 };
 
 export class Circle extends EventEmitter<CircleEvents> {
-  circle: ymaps.Circle;
+  circle: ymaps.Circle | null = null;
+  coords: Coords;
   options: CircleOptions;
+
+  initCircle = (): void => {
+    const { coords, options } = this;
+
+    const circle = new window.ymaps.Circle(
+      [coords, options.radius],
+      {},
+      {
+        draggable: options.draggable,
+      }
+    );
+
+    circle.events.add("dragend", () => {
+      if (circle.geometry) {
+        const newCoords = circle.geometry.getCoordinates();
+
+        this.trigger("dragend", newCoords as Coords);
+      }
+    });
+
+    this.circle = circle;
+
+    this.trigger("init", circle);
+  };
 
   constructor(coords: Coords, propsOptions?: CircleOptions) {
     super();
@@ -29,26 +56,15 @@ export class Circle extends EventEmitter<CircleEvents> {
     );
 
     this.options = options;
+    this.coords = coords;
 
-    this.circle = new window.ymaps.Circle(
-      [coords, options.radius],
-      {},
-      {
-        draggable: options.draggable,
-      }
-    );
-
-    this.circle.events.add("dragend", () => {
-      if (this.circle.geometry) {
-        const newCoords = this.circle.geometry.getCoordinates();
-
-        this.trigger("dragend", newCoords as Coords);
-      }
-    });
+    window.ymaps.ready(this.initCircle);
   }
 
   setCoords(coords: Coords) {
-    if (this.circle.geometry) {
+    this.coords = coords;
+
+    if (this.circle && this.circle.geometry) {
       this.circle.geometry.setCoordinates(coords);
     }
   }

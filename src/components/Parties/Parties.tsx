@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
+import type { MutableRefObject } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, ButtonStyle } from "components/Button";
-import { Popup } from "components/Popup";
 import { selectParties } from "selectors";
 import { newPartyAction } from "actions";
+import { YandexMap, Circle } from "components/YandexMap";
 
 import css from "./Parties.styl";
 
@@ -19,23 +20,39 @@ const Empty = () => {
         style={ButtonStyle.White}
         className={css.emptyAddBtn}
       >
-        Хочу побегать
+        Создать пробежку
       </Button>
     </div>
   );
 };
 
+type Circles = {
+  [key: string]: Circle;
+};
+
 export const Parties = () => {
+  const mapRef = useRef<YandexMap>(null);
+  const circles = useRef<Circles>({}) as MutableRefObject<Circles>;
   const parties = useSelector(selectParties);
 
-  if (parties.length === 0) {
-    return <Empty />;
-  }
+  useEffect(() => {
+    parties.forEach((party) => {
+      const activeCircle = circles.current[party.id];
+
+      if (!activeCircle && mapRef.current) {
+        const circle = mapRef.current.createCircle(party.coords, {
+          radius: 300,
+        });
+
+        circles.current[party.id] = circle;
+      }
+    });
+  }, [parties]);
 
   return (
     <div className={css.root}>
       <div className={css.content}>
-        <div className={css.title}>Запланированные пробежки</div>
+        <YandexMap className={css.map} ref={mapRef} />
       </div>
     </div>
   );

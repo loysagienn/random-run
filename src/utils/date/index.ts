@@ -9,3 +9,4 @@ export * from "./useWeekStartDays";
 export * from "./getMonthDayName";
 export * from "./getMonthDayDate";
 export * from "./getWeekDayName";
+export * from "./getTimestamp";
